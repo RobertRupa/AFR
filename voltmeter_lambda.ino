@@ -1,10 +1,13 @@
 #include <ESP8266WiFi.h>
-#include <Wire.h>  // Only needed for Arduino 1.6.5 and earlier
-//#include "SSD1306Wire.h" // legacy include: `#include "SSD1306.h"`
-//SSD1306Wire  display(0x3c, D2, D1);  //D2=SDK  D1=SCK  As per labeling on NodeMCU
+#include <Wire.h>  
 
+//for 0.96" SSD1306 screen
+//#include "SSD1306Wire.h" 
+//SSD1306Wire  display(0x3c, D2, D1);  //D2=SDA  D1=SCL
+
+//for 1.3" SH1106 screen
 #include <SH1106Wire.h>
-SH1106Wire  display(0x3c, D2, D1);  //D2=SDK  D1=SCK
+SH1106Wire  display(0x3c, D2, D1);  //D2=SDA  D1=SCL
 
 
 
@@ -20,7 +23,7 @@ void setup() {
 
 void loop() {
   int sensorValue = analogRead(A0);
-  float volt = sensorValue * (3.2 / 1023.0)-0.03;
+  float volt = sensorValue * (3.2 / 1023.0)-0.03;  //looks like ESP8266 is not very accurate reading voltage, thus -0.03 in my case
 
 if (volt>=0.895) {AFR = "rich";}
 else if (volt>=0.885) {AFR = "11.50";}
